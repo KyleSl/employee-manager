@@ -1,8 +1,10 @@
+const {Department, Employee, Role} = require('./models');
+
 const mainPrompt = [
     {
         type: 'list',
-        message: 'Please select an option: ',
-        choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update employee'],
+        message: '\nRemember you can use Ctrl + c to exit. \nPlease select an option: ',
+        choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee'/*, 'Update employee'*/],
         name: 'option',
     }
 ];
@@ -30,9 +32,9 @@ const addRolePrompt = [
         type: 'input',
         message: 'Enter name of department that the new role belongs to: ',
         name: 'roleDepartment',
-        validate: function (input) {
-            const departments = Department.findAll();
-            if(departments.includes(input)){
+        validate: async function (input) {
+            const department = await Department.findOne({ where: { title: input }});
+            if(department !== null){
                 return true;
             }
             return false;
@@ -43,16 +45,21 @@ const addRolePrompt = [
 const addEmployeePrompt = [
     {
         type: 'input',
-        message: 'Enter full employee name (first last): ',
-        name: 'fullName',
+        message: 'Enter employee first name: ',
+        name: 'firstName',
+    },
+    {
+        type: 'input',
+        message: 'Enter employee last name: ',
+        name: 'lastName',
     },
     {
         type: 'input',
         message: 'Enter the name of the role of the employee: ',
         name: 'role',
         validate: function (input) {
-            const roles = Role.findAll();
-            if(roles.includes(input)){
+            const role = Role.findOne({ where: { title: input }});
+            if(role !== null){
                 return true;
             }
             return false;
@@ -60,14 +67,17 @@ const addEmployeePrompt = [
     },
     {
         type: 'input',
-        message: 'Enter the name of the employee\'s manager (first last): ',
-        name: 'manager',
+        message: 'Enter the id of the employee\'s manager: ',
+        name: 'managerid',
         validate: function (input) {
-            const employees = Employee.findAll();
-            if(employees.includes(input)){
-                return true;
+            if(input !== ''){
+                const employee = Employee.findByPk(input);
+                if(employee !== null){
+                    return true;
+                }
+                return false;
             }
-            return false;
+            return true;
         }
     }
 ];

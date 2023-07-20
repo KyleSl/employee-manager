@@ -9,7 +9,9 @@
   "author": "Kyle Slaughter",
   "license": "ISC",
   "dependencies": {
+    "as-table": "^1.0.55",
     "dotenv": "^16.3.1",
+    "gfmt": "^2.0.0",
     "inquirer": "^8.2.4",
     "mysql2": "^3.5.2",
     "sequelize": "^6.32.1"
