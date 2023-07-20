@@ -3,7 +3,7 @@ const mainPrompt = [
         type: 'list',
         message: 'Please select an option: ',
         choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update employee'],
-        name: 'option'
+        name: 'option',
     }
 ];
 
@@ -71,3 +71,5 @@ const addEmployeePrompt = [
         }
     }
 ];
+
+module.exports = { mainPrompt, addDepartmentPrompt, addEmployeePrompt, addRolePrompt };

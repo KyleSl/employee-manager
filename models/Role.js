@@ -12,7 +12,7 @@ Role.init(
       autoIncrement: true,
     },
     title: {
-        type: DataTypes.VARCHAR(30),
+        type: DataTypes.STRING,
         allowNull: false,
     },
     salary: {
@@ -30,9 +30,7 @@ Role.init(
   },
   {
     sequelize,
-    timestamps: true,
     freezeTableName: true,
-    underscored: true,
     modelName: "role",
   }
 );
